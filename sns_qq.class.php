@@ -27,7 +27,7 @@ class sns_qq extends connect_abstract
             'callback' => $this->configure['sns_qq_callback'],
             'scope' => 'get_user_info',
             'errorReport' => true
-        ));_dump($this->recorder,1);
+        ));
         $this->urlUtils = new UrlUtils();
         $this->error = new ErrorCase();
     }
