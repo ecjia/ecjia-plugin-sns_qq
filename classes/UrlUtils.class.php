@@ -8,9 +8,9 @@ class UrlUtils
 
     private $error;
 
-    public function __construct()
+    public function __construct(array $inc)
     {
-        $this->error = new ErrorCase();
+        $this->error = new ErrorCase($inc);
     }
 
     /**

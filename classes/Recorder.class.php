@@ -21,9 +21,9 @@ class Recorder
 
     private $error;
 
-    public function __construct(array $configure)
+    public function __construct(array $configure )
     {
-        $this->error = new ErrorCase();
+        $this->error = new ErrorCase($configure);
         
         $this->inc = json_decode(json_encode($configure));
         if (empty($this->inc)) {

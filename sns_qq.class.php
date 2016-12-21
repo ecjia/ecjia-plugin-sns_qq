@@ -21,15 +21,16 @@ class sns_qq extends connect_abstract
     public function __construct($client_id, $client_secret, $configure = array()) {
         parent::__construct($client_id, $client_secret, $configure);
         
-        $this->recorder = new Recorder(array(
+        $inc = array(
         	'appid' => $this->configure['sns_qq_appid'],
             'appkey' => $this->configure['sns_qq_appkey'],
             'callback' => $this->configure['sns_qq_callback'],
             'scope' => 'get_user_info',
             'errorReport' => true
-        ));
-        $this->urlUtils = new UrlUtils();
-        $this->error = new ErrorCase();
+        );
+        $this->recorder = new Recorder($inc);
+        $this->urlUtils = new UrlUtils($inc);
+        $this->error = new ErrorCase($inc);
     }
     
     /**
