@@ -166,7 +166,7 @@ class sns_qq extends ConnectAbstract
        
         $userinfo = $this->me();
         
-        $connect_user = new ConnectUser($this->getCode(), $this->open_id);
+        $connect_user = new ConnectUser($this->getCode(), $this->open_id, $user_type);
         $connect_user->saveOpenId($this->access_token, serialize($userinfo), $this->expires_in);
         $connect_user->setUserName($userinfo['nickname']);
         
