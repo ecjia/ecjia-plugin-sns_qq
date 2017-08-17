@@ -66,7 +66,7 @@ class Recorder
 
     private $error;
 
-    public function __construct(array $configure )
+    public function __construct(array $configure)
     {
         $this->error = new ErrorCase($configure);
         
@@ -85,6 +85,7 @@ class Recorder
     public function write($name, $value)
     {
         self::$data[$name] = $value;
+        $_SESSION['QC_userData'] = self::$data;
     }
 
     public function read($name)
@@ -113,9 +114,10 @@ class Recorder
     public function delete($name)
     {
         unset(self::$data[$name]);
+        $_SESSION['QC_userData'] = self::$data;
     }
 
-    function __destruct()
+    public function __destruct()
     {
         $_SESSION['QC_userData'] = self::$data;
     }
