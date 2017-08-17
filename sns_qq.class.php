@@ -185,7 +185,7 @@ class sns_qq extends ConnectAbstract
         $keysArr = array(
             "grant_type"    => "authorization_code",
             "client_id"     => $this->recorder->readInc("appid"),
-            "redirect_uri"  => urlencode($this->recorder->readInc("callback")),
+            "redirect_uri"  => $this->recorder->readInc("callback"),
             "client_secret" => $this->recorder->readInc("appkey"),
             "code"          => $_GET['code']
         );
