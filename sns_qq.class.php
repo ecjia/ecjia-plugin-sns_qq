@@ -71,7 +71,7 @@ class sns_qq extends ConnectAbstract
      */
     public function getCode()
     {
-        return $this->loadConfig('pay_code');
+        return $this->loadConfig('connect_code');
     }
     
     /**
@@ -96,13 +96,14 @@ class sns_qq extends ConnectAbstract
         return $this->loadPluginData(RC_Plugin::plugin_dir_path(__FILE__) . '/languages/'.$locale.'/plugin.lang.php', $key, $default);
     }
     
-    public function __construct($client_id, $client_secret, $configure = array()) {
-        parent::__construct($client_id, $client_secret, $configure);
+    public function setConfig(array $config) 
+    {
+        parent::setConfig();
         
         $inc = array(
-        	'appid' => $this->configure['sns_qq_appid'],
-            'appkey' => $this->configure['sns_qq_appkey'],
-            'callback' => $this->configure['sns_qq_callback'],
+        	'appid' => $this->config['sns_qq_appid'],
+            'appkey' => $this->config['sns_qq_appkey'],
+            'callback' => $this->callback_url(),
             'scope' => 'get_user_info',
             'errorReport' => true
         );
@@ -110,17 +111,6 @@ class sns_qq extends ConnectAbstract
         $this->urlUtils = new UrlUtils($inc);
         $this->error = new ErrorCase($inc);
     }
-    
-//     /**
-//      * 获取插件配置信息
-//      */
-//     public function configure_config() {
-//         $config = include(RC_Plugin::plugin_dir_path(__FILE__) . 'config.php');
-//         if (is_array($config)) {
-//             return $config;
-//         }
-//         return array();
-//     }
     
     /**
      * 生成授权网址
@@ -146,6 +136,12 @@ class sns_qq extends ConnectAbstract
         $login_url = $this->urlUtils->combineURL(self::GET_AUTH_CODE_URL, $keysArr);
         
         return $login_url;
+    }
+    
+    public function callback_url()
+    {
+        $redirect_uri = urlencode(RC_Uri::url('connect/callback/init', array('connect_code' => 'sns_qq')));
+        return $redirect_uri;
     }
     
     public function callback() {
