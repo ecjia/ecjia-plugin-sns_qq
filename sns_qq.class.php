@@ -144,7 +144,16 @@ class sns_qq extends ConnectAbstract
         return $redirect_uri;
     }
     
-    public function callback() {
+    /**
+     * 登录成功后回调处理
+     * @param $user_type 用户类型
+     *          ConnectUser::USER,
+     *          ConnectUser::MERCHANT,
+     *          ConnectUser::ADMIN
+     * @see \Ecjia\App\Connect\ConnectAbstract::callback()
+     * @return \Ecjia\App\Connect\ConnectUser
+     */
+    public function callback($user_type = 'user') {
         $state = $this->recorder->read("state");
         $callback = $this->recorder->readInc("callback");
         
