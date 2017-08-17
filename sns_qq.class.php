@@ -140,7 +140,7 @@ class sns_qq extends ConnectAbstract
     
     public function callback_url()
     {
-        $redirect_uri = RC_Uri::url('connect/callback/init', array('connect_code' => 'sns_qq'));
+        $redirect_uri = urlencode(RC_Uri::url('connect/callback/init', array('connect_code' => 'sns_qq')));
         return $redirect_uri;
     }
     
