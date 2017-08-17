@@ -156,6 +156,7 @@ class sns_qq extends ConnectAbstract
     public function callback($user_type = 'user') {
         $state = $this->recorder->read("state");
         $callback = $this->recorder->readInc("callback");
+        _dump($_SESSION);
         _dump($_GET['state']);
         _dump($state,1);
         //--------验证state防止CSRF攻击
