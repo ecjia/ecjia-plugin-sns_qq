@@ -200,7 +200,7 @@ class sns_qq extends ConnectAbstract
             $msg        = json_decode($response);
         
             if (isset($msg->error)) {
-                $this->error->showError($msg->error, $msg->error_description);
+                $this->error->showError($msg->error, $msg->error_description.$token_url);
             }
         }
         
