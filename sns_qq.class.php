@@ -187,7 +187,7 @@ class sns_qq extends ConnectAbstract
             "client_id"     => $this->recorder->readInc("appid"),
             "redirect_uri"  => $this->recorder->readInc("callback"),
             "client_secret" => $this->recorder->readInc("appkey"),
-            "code"          => $_GET['code']
+            "code"          => $code,
         );
         //------构造请求access_token的url
         $token_url = $this->urlUtils->combineURL(self::GET_ACCESS_TOKEN_URL, $keysArr);
