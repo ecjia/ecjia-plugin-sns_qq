@@ -98,7 +98,7 @@ class sns_qq extends ConnectAbstract
     
     public function setConfig(array $config) 
     {
-        parent::setConfig();
+        parent::setConfig($config);
         
         $inc = array(
         	'appid' => $this->config['sns_qq_appid'],
