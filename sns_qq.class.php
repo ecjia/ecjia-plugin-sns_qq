@@ -131,8 +131,6 @@ class sns_qq extends ConnectAbstract
             "redirect_uri"      => $callback,
             "state"             => $state,
             "scope"             => $scope,
-            "display"           => 'mobile', //仅WAP网站接入时使用
-            "g_ut"              => '2'  //仅WAP网站接入时使用
         );
         
         $login_url = $this->urlUtils->combineURL(self::GET_AUTH_CODE_URL, $keysArr);
