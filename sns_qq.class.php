@@ -101,11 +101,11 @@ class sns_qq extends ConnectAbstract
         parent::setConfig($config);
         
         $inc = array(
-        	'appid' => $this->config['sns_qq_appid'],
-            'appkey' => $this->config['sns_qq_appkey'],
-            'callback' => $this->callback_url(),
-            'scope' => 'get_user_info',
-            'errorReport' => true
+        	'appid'        => $this->config['sns_qq_appid'],
+            'appkey'       => $this->config['sns_qq_appkey'],
+            'callback'     => $this->callback_url(),
+            'scope'        => 'get_user_info',
+            'errorReport'  => true
         );
         $this->recorder = new Recorder($inc);
         $this->urlUtils = new UrlUtils($inc);
@@ -166,11 +166,12 @@ class sns_qq extends ConnectAbstract
        
         $userinfo = $this->me();
         
-        $connect_user = new connect_user($this->configure['connect_code'], $this->open_id);
-        $connect_user->save_openid($this->access_token, serialize($userinfo), $token['expires_in']);
+        $connect_user = new ConnectUser($this->getCode(), $this->open_id);
+        $connect_user->saveOpenId($this->access_token, serialize($userinfo), $this->expires_in);
+        $connect_user->setUserName($userinfo['nickname']);
         
-        if ($userinfo['ret'] == 0) {
-            return array('connect_code' => $this->configure['connect_code'], 'open_id' => $this->open_id, 'username' => $userinfo['nickname']);
+        if (intval($userinfo['ret']) === 0) {
+            return $connect_user;
         } else {
             return new ecjia_error('sns_qq_authorize_failure', '登录授权失败，请换其他方式登录');
         }        
@@ -209,6 +210,7 @@ class sns_qq extends ConnectAbstract
         $this->recorder->write("access_token", $params["access_token"]);
         
         $this->access_token = $params["access_token"];
+        $this->expires_in = $params["expires_in"];
 
         return $params;
     }
