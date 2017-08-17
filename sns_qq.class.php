@@ -49,9 +49,10 @@
  */
 defined('IN_ECJIA') or exit('No permission resources.');
 
-RC_Loader::load_app_class('connect_abstract', 'connect', false);
-RC_Loader::load_app_class('connect_user', 'connect', false);
-class sns_qq extends connect_abstract
+use Ecjia\App\Connect\ConnectAbstract;
+use Ecjia\App\Connect\ConnectUser;
+
+class sns_qq extends ConnectAbstract
 {
     protected $oauth;
     
@@ -62,6 +63,38 @@ class sns_qq extends connect_abstract
     protected $recorder;
     public $urlUtils;
     protected $error;
+    
+    /**
+     * 获取插件代号
+     *
+     * @see \Ecjia\System\Plugin\PluginInterface::getCode()
+     */
+    public function getCode()
+    {
+        return $this->loadConfig('pay_code');
+    }
+    
+    /**
+     * 加载配置文件
+     *
+     * @see \Ecjia\System\Plugin\PluginInterface::loadConfig()
+     */
+    public function loadConfig($key = null, $default = null)
+    {
+        return $this->loadPluginData(RC_Plugin::plugin_dir_path(__FILE__) . 'config.php', $key, $default);
+    }
+    
+    /**
+     * 加载语言包
+     *
+     * @see \Ecjia\System\Plugin\PluginInterface::loadLanguage()
+     */
+    public function loadLanguage($key = null, $default = null)
+    {
+        $locale = RC_Config::get('system.locale');
+    
+        return $this->loadPluginData(RC_Plugin::plugin_dir_path(__FILE__) . '/languages/'.$locale.'/plugin.lang.php', $key, $default);
+    }
     
     public function __construct($client_id, $client_secret, $configure = array()) {
         parent::__construct($client_id, $client_secret, $configure);
@@ -78,16 +111,16 @@ class sns_qq extends connect_abstract
         $this->error = new ErrorCase($inc);
     }
     
-    /**
-     * 获取插件配置信息
-     */
-    public function configure_config() {
-        $config = include(RC_Plugin::plugin_dir_path(__FILE__) . 'config.php');
-        if (is_array($config)) {
-            return $config;
-        }
-        return array();
-    }
+//     /**
+//      * 获取插件配置信息
+//      */
+//     public function configure_config() {
+//         $config = include(RC_Plugin::plugin_dir_path(__FILE__) . 'config.php');
+//         if (is_array($config)) {
+//             return $config;
+//         }
+//         return array();
+//     }
     
     /**
      * 生成授权网址
@@ -221,12 +254,15 @@ class sns_qq extends connect_abstract
         return $userinfo;
     }
     
-    public function get_username(array $profile) {
-        return $profile['nickname'];
+    /**
+     * 获取用户头像
+     */
+    public function get_headerimg() {
+        return $this->profile['figureurl_qq_2'];
     }
     
-    public function get_email(array $profile) {
-        return $this->generate_email();
+    public function get_username() {
+        return $this->profile['nickname'];
     }
     
 }
