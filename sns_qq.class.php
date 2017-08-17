@@ -130,7 +130,9 @@ class sns_qq extends ConnectAbstract
             "client_id"         => $appid,
             "redirect_uri"      => $callback,
             "state"             => $state,
-            "scope"             => $scope
+            "scope"             => $scope,
+            "display"           => 'mobile', //仅WAP网站接入时使用
+            "g_ut"              => '2'  //仅WAP网站接入时使用
         );
         
         $login_url = $this->urlUtils->combineURL(self::GET_AUTH_CODE_URL, $keysArr);
@@ -200,7 +202,7 @@ class sns_qq extends ConnectAbstract
             $msg        = json_decode($response);
         
             if (isset($msg->error)) {
-                $this->error->showError($msg->error, $msg->error_description.$token_url);
+                $this->error->showError($msg->error, $msg->error_description);
             }
         }
         
