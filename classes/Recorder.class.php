@@ -64,15 +64,11 @@ class Recorder
 
     private $inc;
 
-    private $error;
-
     public function __construct(array $configure)
     {
-        $this->error = new ErrorCase($configure);
-        
         $this->inc = json_decode(json_encode($configure));
         if (empty($this->inc)) {
-            $this->error->showError("20001");
+            return new ecjia_error('20001', ErrorCase::showError('20001'));
         }
         
         if (empty($_SESSION['QC_userData'])) {

@@ -62,7 +62,6 @@ class sns_qq extends ConnectAbstract
     
     protected $recorder;
     public $urlUtils;
-    protected $error;
     
     /**
      * 获取插件代号
@@ -108,8 +107,7 @@ class sns_qq extends ConnectAbstract
             'errorReport'  => true
         );
         $this->recorder = new Recorder($inc);
-        $this->urlUtils = new UrlUtils($inc);
-        $this->error = new ErrorCase($inc);
+        $this->urlUtils = new UrlUtils();
     }
     
     /**
@@ -159,7 +157,7 @@ class sns_qq extends ConnectAbstract
 
         //--------验证state防止CSRF攻击
         if($_GET['state'] != $state){
-            $this->error->showError("30001");
+            return new ecjia_error('30001', ErrorCase::showError('30001'));
         }
 
         $token = $this->access_token($callback, $_GET['code']);
@@ -200,7 +198,7 @@ class sns_qq extends ConnectAbstract
             $msg        = json_decode($response);
         
             if (isset($msg->error)) {
-                $this->error->showError($msg->error, $msg->error_description);
+                return new ecjia_error($msg->error, $msg->error_description);
             }
         }
         
@@ -234,7 +232,7 @@ class sns_qq extends ConnectAbstract
     
         $user = json_decode($response);
         if (isset($user->error)) {
-            $this->error->showError($user->error, $user->error_description);
+            return new ecjia_error($user->error, $user->error_description);
         }
     
         //------记录openid
@@ -257,7 +255,7 @@ class sns_qq extends ConnectAbstract
      */
     public function me() {
         $open_id =  $this->get_openid();
-        $this->oauth = new QQConnect($this->recorder, $this->urlUtils, $this->error, $this->access_token, $open_id);
+        $this->oauth = new QQConnect($this->recorder, $this->urlUtils, $this->access_token, $open_id);
         $userinfo = $this->oauth->get_user_info();
         return $userinfo;
     }
