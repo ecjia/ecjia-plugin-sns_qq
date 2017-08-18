@@ -210,6 +210,7 @@ class sns_qq extends ConnectAbstract
         $this->recorder->write("access_token", $params["access_token"]);
         
         $this->access_token = $params["access_token"];
+        $this->refresh_token = $params["refresh_token"];
         $this->expires_in = $params["expires_in"];
 
         return $params;
