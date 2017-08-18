@@ -163,6 +163,9 @@ class sns_qq extends ConnectAbstract
         $token = $this->access_token($callback, $_GET['code']);
        
         $userinfo = $this->me();
+        if (is_ecjia_error($userinfo)) {
+            return $userinfo;
+        }
         
         $connect_user = new ConnectUser($this->getCode(), $this->open_id, $user_type);
         $connect_user->saveOpenId($this->access_token, $this->refresh_token, serialize($userinfo), $this->expires_in);
@@ -190,6 +193,9 @@ class sns_qq extends ConnectAbstract
         //------构造请求access_token的url
         $token_url = $this->urlUtils->combineURL(self::GET_ACCESS_TOKEN_URL, $keysArr);
         $response = $this->urlUtils->get_contents($token_url);
+        if (is_ecjia_error($response)) {
+            return $response;
+        }
         
         if (strpos($response, "callback") !== false) {
             $lpos       = strpos($response, "(");
