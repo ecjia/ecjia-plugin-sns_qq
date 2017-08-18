@@ -118,7 +118,7 @@ class ErrorCase
      */
     public static function showError($code)
     {
-        return array_get(self::errorMsg, $code);
+        return array_get(self::$errorMsg, $code);
     }
 
 }
