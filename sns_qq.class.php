@@ -51,6 +51,7 @@ defined('IN_ECJIA') or exit('No permission resources.');
 
 use Ecjia\App\Connect\ConnectAbstract;
 use Ecjia\App\Connect\ConnectUser;
+use GuzzleHttp\json_encode;
 
 class sns_qq extends ConnectAbstract
 {
@@ -163,6 +164,7 @@ class sns_qq extends ConnectAbstract
         $token = $this->access_token($callback, $_GET['code']);
        
         $userinfo = $this->me();
+        RC_Logger::getLogger('wechat')->debug('QQ connect get userinfo:'.json_encode($userinfo));
         if (is_ecjia_error($userinfo)) {
             return $userinfo;
         }
@@ -262,7 +264,7 @@ class sns_qq extends ConnectAbstract
     public function me() {
         $open_id =  $this->get_openid();
         $this->oauth = new QQConnect($this->recorder, $this->urlUtils, $this->access_token, $open_id);
-        $userinfo = $this->oauth->get_user_info();dd($userinfo);
+        $userinfo = $this->oauth->get_user_info();
         return $userinfo;
     }
     
