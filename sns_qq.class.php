@@ -262,7 +262,7 @@ class sns_qq extends ConnectAbstract
     public function me() {
         $open_id =  $this->get_openid();
         $this->oauth = new QQConnect($this->recorder, $this->urlUtils, $this->access_token, $open_id);
-        $userinfo = $this->oauth->get_user_info();
+        $userinfo = $this->oauth->get_user_info();dd($userinfo);
         return $userinfo;
     }
     
