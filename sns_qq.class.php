@@ -164,7 +164,7 @@ class sns_qq extends ConnectAbstract
         $token = $this->access_token($callback, $_GET['code']);
        
         $userinfo = $this->me();
-        RC_Logger::getLogger('wechat')->debug('QQ connect get userinfo:'.json_encode($userinfo));
+        RC_Logger::getlogger('wechat')->debug('QQ connect get userinfo:'.json_encode($userinfo));
         if (is_ecjia_error($userinfo)) {
             return $userinfo;
         }
