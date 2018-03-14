@@ -158,7 +158,7 @@ class sns_qq extends ConnectAbstract
         
         //--------验证state防止CSRF攻击
         if ($_GET['state'] != $state){
-            RC_Logger::getLogger('wechat')->debug('QQ connect get userinfo:'.ErrorCase::showError('30001'));
+            RC_Logger::getLogger('wechat')->debug('QQ connect get session:'.json_encode($_SESSION));
             return new ecjia_error('30001', ErrorCase::showError('30001'));
         }
 
