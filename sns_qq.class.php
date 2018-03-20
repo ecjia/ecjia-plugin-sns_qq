@@ -51,7 +51,6 @@ defined('IN_ECJIA') or exit('No permission resources.');
 
 use Ecjia\App\Connect\ConnectAbstract;
 use Ecjia\App\Connect\ConnectUser;
-use GuzzleHttp\json_encode;
 
 class sns_qq extends ConnectAbstract
 {
