@@ -188,7 +188,9 @@ class sns_qq extends ConnectAbstract
         //$connect_user->setUnionId($this->union_id);
 
         //通过union_id同步已绑定的用户信息
-        //$connect_user->bindUserByUnionId();
+//        if($this->union_id) {
+//            $connect_user->bindUserByUnionId();
+//        }
         /*
          * 可以通过判断open_id是否，决定使用哪一种绑定方法
          * 如果记录不存在，则需创建记录 createUser()
