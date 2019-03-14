@@ -108,6 +108,9 @@ class sns_qq extends ConnectAbstract
         );
         $this->recorder = new Recorder($inc);
         $this->urlUtils = new UrlUtils();
+        if(is_ecjia_error($this->recorder)) {
+            return $this->recorder;
+        }
     }
     
     /**
