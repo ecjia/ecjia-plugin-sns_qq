@@ -213,7 +213,7 @@ class sns_qq extends ConnectAbstract
         if (intval($userinfo['ret']) === 0) {
             return $connect_user;
         } else {
-            return new ecjia_error('sns_qq_authorize_failure', '登录授权失败，请换其他方式登录');
+            return new ecjia_error('sns_qq_authorize_failure', __('登录授权失败，请换其他方式登录', 'sns_qq'));
         }
     }
     
