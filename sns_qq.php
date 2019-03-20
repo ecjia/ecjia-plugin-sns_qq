@@ -72,6 +72,7 @@ class plugin_sns_qq {
 }
 
 Ecjia_PluginManager::extend('sns_qq', function() {
+    RC_Locale::loadPluginTextdomain('sns_qq');
     require_once RC_Plugin::plugin_dir_path(__FILE__) . 'sns_qq.class.php';
     return new sns_qq();
 });
