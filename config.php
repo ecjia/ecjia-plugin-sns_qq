@@ -57,12 +57,10 @@ return array(
 	),
 
     'dynamic_option' => array(
-
         'sns_qq_appid' 			=> 'AppID',
         'sns_qq_appkey' 		=> 'AppKey',
         'sns_qq_callback' 		=> '回调地址',
         'sns_qq_callback_desc'  => '(请勿修改，仅供参考)此回调地址的格式，用于填写申请QQ互联的网页应用回调域提示。',
-
     ),
 
 
