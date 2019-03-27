@@ -113,7 +113,7 @@ class ErrorCase
 
             "20001" => __('配置文件损坏或无法读取，请重新执行intall', 'sns_qq'),
             "30001" => __('The state does not match. You may be a victim of CSRF.', 'sns_qq'),
-            "50001" => __('可能是服务器无法请求https协议</h2>可能未开启curl支持,请尝试开启curl支持，重启web服务器，如果问题仍未解决，请联系我们', 'sns_qq'),
+            "50001" => __('<h2>可能是服务器无法请求https协议</h2>可能未开启curl支持,请尝试开启curl支持，重启web服务器，如果问题仍未解决，请联系我们', 'sns_qq'),
 
         );
 
